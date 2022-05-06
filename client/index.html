@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\libs\bootstrap\dist\css\bootstrap.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <title>Predicciones WRF</title>
+</head>
+<body>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4">
+            <div class="card card-body bg-dark rounded-0 mb-4">
+                <h1>
+                  DWRF
+                </h1>
+                <h6 class="text-muted">Decentralized WRF App</h6>
+                <div class="d-flex align-items-center">
+                  <span class="ms-2">Wallet</span>
+                </div>
+                <span id="account"></span>
+              </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card bg-dark">
+                Predicciones
+                <div id="tasksList"></div>
+            </div>
+        </div>
+      </div>    
+    </div>   
+    <!-- <script src="/libs/web3/dist/web3.min.js"></script> -->
+    <script src="/libs/@truffle/contract/dist/truffle-contract.min.js"></script>
+    <script src="./app.js" ></script>
+    <script src="./ui.js"></script> 
+</body>
+</html>

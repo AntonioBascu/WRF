@@ -1,0 +1,20 @@
+{
+  "name": "wrf",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/contract": "^4.5.8",
+    "bootstrap": "^5.1.3",
+    "lite-server": "^2.6.1"
+  },
+  "description": ""
+}
