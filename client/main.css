@@ -2,3 +2,123 @@ body{
     background: #0a192f;
     color: #fff;
 }
+
+#aviso{
+    color: rgb(201, 57, 57);
+    border-style: solid;
+    border-width: 2px;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #0054dc;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px;
+    width: 250px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.button:hover span {
+    padding-right: 25px;
+}
+  
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.drag-area{
+    border: 2px dashed #fff;
+    height: 250px;
+    width: 250px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.drag-area.active{
+    border: 2px solid #fff;
+}
+
+.drag-area .icon{
+    font-size: 60px;
+    color: #fff;
+}
+
+.drag-area header{
+    font-size: 15px;
+    font-weight: 200;
+    color: #fff;
+}
+
+.drag-area span{
+    font-size: 18px;
+    font-weight: 200;
+    color: #fff;
+    margin: 10px 0 15px 0;
+}
+
+.drag-area button{
+    padding: 8px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #1a3a6a;
+    border-radius: 5px;
+    /*cursor: pointer;*/
+}
+
+.drag-area img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.subirDatos{
+    height: 30px;
+    width: 250px;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    visibility: hidden;
+}
+
+.subirDatos button{
+    padding: 7px 70px;
+    border: 2px solid #0054dc;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
