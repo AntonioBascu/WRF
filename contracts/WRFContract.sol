@@ -5,29 +5,32 @@ contract WRFContract {
 
     uint256 public contador=0;
 
-    struct Datos {
+    struct fDatos {
+        uint256 id;
         string latLon;
-        uint256[] temperatura;
-        uint256[] fechaHora;
+        uint256[] temperaturas;
+        uint256[] fechaHoras;
 
     }
 
-    event DatosSubidos(
+    event SubidaDatos(
         uint256 id,
-        uint256 fechaHora,
-        int latitud,
-        int longitud,
-        int temperatura
+        string latLon,
+        uint256[] temperaturas,
+        uint256[] fechaHoras
     );
 
     constructor() {
         
     }
 
-    mapping (uint256 => Datos) public temperaturas;
+    mapping (uint256 => fDatos) public Datos;
 
-    function crearDatos() public{
+    function crearDatos(string memory _latLon, uint256[] memory _temperaturas, uint256[] memory _fechaHoras) public{
 
+        Datos[contador]= fDatos(contador, _latLon, _temperaturas, _fechaHoras);
+        emit SubidaDatos(contador, _latLon, _temperaturas, _fechaHoras);
+        contador++;
         /*
 
         temperaturas[contador]= Datos(latLon, _latitud, _longitud, _temperatura);
@@ -35,4 +38,12 @@ contract WRFContract {
         contador++;*/
     }
     
+    function getTemperatura(uint256 id, uint i) public view returns(uint256){     
+        return Datos[id].temperaturas[i];
+    }
+
+    function getFechaHora(uint256 id, uint i) public view returns(uint256){     
+        return Datos[id].fechaHoras[i];
+    }
+
 }
