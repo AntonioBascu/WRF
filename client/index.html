@@ -6,8 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="\libs\bootstrap\dist\css\bootstrap.min.css">
-  <link rel="stylesheet" href="/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="\main.css">
+  <script src="\libs\bootstrap\dist\js\bootstrap.bundle.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="\libs\jquery-ui-multidatespicker\jquery-ui.multidatespicker.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="\libs\jquery-ui-multidatespicker\jquery-ui.multidatespicker.css">
+
   <title>Predicciones WRF</title>
 </head>
 
@@ -21,16 +28,21 @@
           </h1>
           <h6 class="text-muted">Decentralized WRF App</h6>
           <div class="d-flex align-items-center">
-            <span class="ms-2">Wallet</span>&nbsp;&nbsp;&nbsp;
-            <span id="holaAdmin"></span>
+            <span class="ms-2">Wallet</span>
           </div>
           <span id="account"></span>
         </div>
+
+        <div class="card card-body bg-dark rounded-0 mb-4 container">
+          <select class="form-select" id="dPais" name="sellist1"></select> 
+          <div id="lProvincias"></div>
+        </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 row">
         <div class="card bg-dark">
-          Predicciones
-          <div id="listaTemperaturas"></div>
+          Predicciones 
+          <select class="form-select" id="dAno" name="sellist1" hidden></select>
+          <div class="row" id="tablon"></div><br>
         </div>
       </div>
       <div class="col-md-2">
