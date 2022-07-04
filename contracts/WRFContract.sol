@@ -37,6 +37,12 @@ contract WRFContract {
         emit DatosSubidos(contador+1, block.timestamp, _latitud, _longitud, _temperatura);
         contador++;*/
     }
+
+    function eliminarDatos() public{
+        for (uint256 i = 0; i < contador; i++) {
+            delete Datos[i];
+        }
+    }
     
     function getTemperatura(uint256 id, uint i) public view returns(uint256){     
         return Datos[id].temperaturas[i];

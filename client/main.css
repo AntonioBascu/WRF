@@ -9,13 +9,50 @@ body{
     border-width: 2px;
 }
 
-.button {
+.form-select {
+    background-color: #0054dc;
+    color: #FFFFFF;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 20px;
+    padding: 5px;
+    width: 100%;
+}
+
+#lButton{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    border-width: 2px;
+    width: 80%;
+    padding: 4px;
+}
+
+button:disabled{
+    background-color: #0054dc6e;
+}
+
+.bAño{
+    width: 30%;
+    padding: 7px;
+}
+
+.bMes{
+    width: 100%;
+    padding: 15px;
+    z-index: -1;
+}
+
+.button{
     display: inline-block;
     border-radius: 4px;
     background-color: #0054dc;
-    border: none;
     color: #FFFFFF;
     text-align: center;
+}
+
+#connect {
+    border: none;
     font-size: 24px;
     padding: 20px;
     width: 250px;
@@ -122,3 +159,5 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.calendario{position: absolute; z-index: 1;}
