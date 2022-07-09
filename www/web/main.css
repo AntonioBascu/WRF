@@ -1,5 +1,5 @@
 body{
-    background: #0a192f;
+    background: #ff0000;
     color: #fff;
 }
 
@@ -46,7 +46,7 @@ button:disabled{
 .button{
     display: inline-block;
     border-radius: 4px;
-    background-color: #0054dc;
+    background-color: #dc0000;
     color: #FFFFFF;
     text-align: center;
 }

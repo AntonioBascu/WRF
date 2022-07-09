@@ -1,20 +1,14 @@
-class FDatos {
-    constructor(lugar, temperaturas, fechaHoras) {
-        this.lugar = lugar;
-        this.temperaturas = temperaturas;
-        this.fechaHoras = fechaHoras;
-    }
-};
 
 App = {
 
     contracts: {},
 
     init: async () => {
+        
         App.cargaEthereum()
         if (App.web3Provider != undefined) {
-            App.loadAccount()
             await App.cargaWRFContract()
+            //await App.loadAccount()
             //await App.cargarDatos()
             //await App.renderizarDatos()
 
@@ -28,7 +22,7 @@ App = {
 
     cargaEthereum: async () => {
         if (window.ethereum) {
-            console.log('Existe ethereum')
+            console.log('Existe ethereum.')
             App.web3Provider = window.ethereum
         } else if(window.web3){
             App.web3Provider = window.web3.givenProvider;
@@ -41,7 +35,7 @@ App = {
     cargaWRFContract: async () => {
 
         try {
-            const res = await fetch("WRFContract.json")
+            const res = await fetch("/SmartContracts/WRFContract.json")
             const wrfJson = await res.json()
 
             App.contracts.WRFContract = TruffleContract(wrfJson)
@@ -58,7 +52,6 @@ App = {
 
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
         App.account = accounts[0]
-
 
         document.getElementById("account").innerText = App.account;
 
@@ -102,7 +95,7 @@ App = {
             if (pais == App.lugares[i].split(',')[2]) {
                 let provincia = App.lugares[i].split(',')[1];
                 if (!provincias.includes(provincia)) {      // para que no repita provincias
-                    let element = `<br><button class="button" id="lButton" onClick="App.filtraProvincia('${provincia}')">${provincia}</button>`;
+                    let element = `sdfb<button class="button" id="lButton" onClick="App.filtraProvincia('${provincia}')">${provincia}</button><br>`;
                     html += element;
                 }
                 provincias.push(provincia);
