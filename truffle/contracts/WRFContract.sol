@@ -31,11 +31,7 @@ contract WRFContract {
         Datos[contador]= fDatos(contador, _latLon, _temperaturas, _fechaHoras);
         emit SubidaDatos(contador, _latLon, _temperaturas, _fechaHoras);
         contador++;
-        /*
 
-        temperaturas[contador]= Datos(latLon, _latitud, _longitud, _temperatura);
-        emit DatosSubidos(contador+1, block.timestamp, _latitud, _longitud, _temperatura);
-        contador++;*/
     }
 
     function eliminarDatos() public{

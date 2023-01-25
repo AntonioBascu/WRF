@@ -1,5 +1,6 @@
 body{
-    background: #ff0000;
+    background: url(/img/fondo.png) no-repeat center top;
+    background-size: cover;
     color: #fff;
 }
 
@@ -46,7 +47,7 @@ button:disabled{
 .button{
     display: inline-block;
     border-radius: 4px;
-    background-color: #dc0000;
+    background-color: #0054dc;
     color: #FFFFFF;
     text-align: center;
 }
@@ -61,7 +62,7 @@ button:disabled{
     margin: 5px;
 }
   
-.button span {
+#txtConectar {
     cursor: pointer;
     display: inline-block;
     position: relative;
@@ -87,7 +88,7 @@ button:disabled{
 }
 
 .drag-area{
-    border: 2px dashed #fff;
+    border: 2px dashed rgb(0, 0, 0);
     height: 250px;
     width: 250px;
     border-radius: 5px;
@@ -110,13 +111,13 @@ button:disabled{
 .drag-area header{
     font-size: 15px;
     font-weight: 200;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .drag-area span{
     font-size: 18px;
     font-weight: 200;
-    color: #fff;
+    color: rgb(0, 0, 0);
     margin: 10px 0 15px 0;
 }
 
@@ -161,3 +162,7 @@ button:disabled{
 }
 
 .calendario{position: absolute; z-index: 1;}
+
+.progress-bar {
+    height: 80px;
+}

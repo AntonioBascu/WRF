@@ -1,3 +1,12 @@
+<?php
+  session_start();
+
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /index.php');
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +29,7 @@
 <body>
   <div class="container py-5">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="card card-body bg-dark rounded-0 mb-4">
           <h1>
             DWRF
@@ -33,23 +42,23 @@
         </div>
 
         <div class="card card-body bg-dark rounded-0 mb-4 container">
-          <h5>Selecciona un pais</h5>
+          <h5>Pais</h5>
           <select class="form-select" id="dPais" name="sellist1"></select> <br>
-          <h5>Elige provincia</h5>
+          <h5>Provincia</h5>
           <div id="lProvincias"></div>
         </div>
       </div>
-      <div class="col-md-6 row">
+      <div class="col-md-7 row">
         <div class="card bg-dark">
           Predicciones 
-          <select class="form-select" id="dAno" name="sellist1" hidden></select>
+          <select class="form-select" id="dAno" hidden></select>
           <div class="row" id="tablon"></div><br>
         </div>
       </div>
       <div class="col-md-2">
         <div>
-          <button id="connect" class="button" style="vertical-align:middle" onclick="App.loadAccount()"><span>Conectar
-              con metamask</span></button>
+          <button id="connect" class="button" style="vertical-align:middle" onclick="App.loadAccount()"><span id="txtConectar">Conectar
+              con Metamask</span></button>
         </div>
         <br>
         <div class="drag-area" hidden> 
@@ -72,7 +81,7 @@
   
   <script src="/web/app.js"></script>
   <script src="/web/ui.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBCYwoVbZR0bTZIRMcMkNwpzp8RLr_q0" defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBCYwoVbZR0bTZIRMcMkNwpzp8RLr_q0&callback=App.inicializarAPIGMapas" defer></script>
 </body>
 
 </html>
