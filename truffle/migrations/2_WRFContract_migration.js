@@ -1,6 +1,6 @@
-const temperaturas = artifacts.require("WRFContract");
+const wrfContract = artifacts.require("WRFContract");
 
 module.exports = function (deployer) {
-  deployer.deploy(temperaturas);
+  deployer.deploy(wrfContract);
 };
  

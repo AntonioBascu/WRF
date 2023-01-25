@@ -4,7 +4,7 @@ App = {
     contracts: {},
 
     init: async () => {
-        
+
         App.cargaEthereum()
         if (App.web3Provider != undefined) {
             await App.cargaWRFContract()
@@ -15,16 +15,14 @@ App = {
             await App.cargarPaises()
             await App.cargaProvincias(`España`)
         }
-        App.obtenerLugar(38.95, -1.88)
-        App.obtenerLugar(40.41, -3.70)
-        App.obtenerLugar(51.51, -0.09)
+
     },
 
     cargaEthereum: async () => {
         if (window.ethereum) {
             console.log('Existe ethereum.')
             App.web3Provider = window.ethereum
-        } else if(window.web3){
+        } else if (window.web3) {
             App.web3Provider = window.web3.givenProvider;
         } else {
             console.log('No existe web3 ni ethereum. Prueba instalando metamask.')
@@ -50,7 +48,7 @@ App = {
 
     loadAccount: async () => {
 
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
         App.account = accounts[0]
 
         document.getElementById("account").innerText = App.account;
@@ -60,6 +58,8 @@ App = {
         if (App.account === admin.toLowerCase()) {
             dropArea.removeAttribute("hidden");
         }
+
+        document.getElementById("txtConectar").innerText = "Conectado";
     },
 
     cargarPaises: async () => {
@@ -95,7 +95,7 @@ App = {
             if (pais == App.lugares[i].split(',')[2]) {
                 let provincia = App.lugares[i].split(',')[1];
                 if (!provincias.includes(provincia)) {      // para que no repita provincias
-                    let element = `sdfb<button class="button" id="lButton" onClick="App.filtraProvincia('${provincia}')">${provincia}</button><br>`;
+                    let element = `<button class="button" id="lButton" onClick="App.filtraProvincia('${provincia}')">${provincia}</button><br>`;
                     html += element;
                 }
                 provincias.push(provincia);
@@ -224,9 +224,12 @@ App = {
 
     },
 
+    inicializarAPIGMapas: async () => {
+        var geocoder = new google.maps.Geocoder();
+    },
+
     obtenerLugar: async (lat, lng) => {
         var latlng = new google.maps.LatLng(lat, lng);
-        var geocoder = new google.maps.Geocoder();
         var lug;
 
         await geocoder.geocode({ 'latLng': latlng }, (results, status) => {
@@ -264,27 +267,28 @@ App = {
     },
 
     filtraProvincia: async (provincia) => {
-        //mostrar en pantalla meses disponibles y seleccionar dia
+
         var cont = await App.wrfContract.contador()
         var contador = cont.toNumber()
         App.meses = [];
         App.años = [];
         App.dias = [];
         App.idsP = [];
-        for (let i = 0; i < contador; i++) {
+        for (let i = 0; i < contador; i++) {   //se comprueban todos los contratos
             let lugar;
             await App.getLugar(i).then(v => lugar = v)
-            if (provincia == lugar.split(',')[1]) {
+            if (provincia == lugar.split(',')[1]) {   // si la provincia seleccionada es igual a la del contrato actual del bucle
                 let fecha;
                 await App.getFechaHora(i, 0).then(v => fecha = v)
                 App.meses.push(fecha.getMonth());
-                App.años.push(fecha.getFullYear()); //obtenemos meses y años para llenar desplegableAños y renderizarMeses, dias para llenar calendario e ids del fichero para buscar dia seleccionado
+                App.años.push(fecha.getFullYear()); //obtenemos meses y años para llenar desplegableAños y renderizarMeses, dias para llenar calendario e id del fichero para despues buscar dia seleccionado
                 App.dias.push(fecha.getDate());
                 App.idsP.push(i);
             }
         }
-        App.creaDesplegableAños(App.años);
-        App.renderizaMeses(App.meses, App.años, new Date().getFullYear());
+        maximo = Math.max(...App.años);
+        App.creaDesplegableAños(App.años, maximo);
+        App.renderizaMeses(App.meses, App.años, maximo);
     },
 
     renderizaMeses: (meses, años, año) => {
@@ -314,14 +318,15 @@ App = {
         document.getElementById('col2').innerHTML = col2;
     },
 
-    creaDesplegableAños: (anos) => {
+    creaDesplegableAños: (anos, maximo) => {
         document.getElementById('dAno').removeAttribute("hidden");
         const años = anos.filter((valor, indice) => {
             return anos.indexOf(valor) === indice;
         });
         htmlAños = ``;
         años.forEach(element => {
-            htmlAños += `<option value="${element}">${element}</option>`;
+            if (element == maximo) htmlAños += `<option value="${element}" selected>${element}</option>`;
+            else htmlAños += `<option value="${element}">${element}</option>`
         });
 
         document.getElementById('dAno').innerHTML = htmlAños;
@@ -363,7 +368,7 @@ App = {
     diasDesactivados: (año, mes) => {
         var diasDes = [];
         App.diasCalen = [];   //arrays con dias disponibles en calendario
-        App.idsCalen = [];   // e ids del fichero respectivo
+        App.idsCalen = [];   // ids del fichero respectivo
         for (let i = 0; i < App.meses.length; i++) {
             if (App.meses[i] == mes && App.años[i] == año) {
                 App.diasCalen.push(App.dias[i]);
@@ -390,6 +395,7 @@ App = {
     },
 
     muestraTemperaturas: async (id) => {
+
         App.ocultaCalendario();
         let tLugar;
         await App.getLugar(id).then(v => tLugar = v);
@@ -399,6 +405,11 @@ App = {
                         <span>Lugar: ${tLugar}</span><br>
                     `;
         html += tempElement;
+
+        barraProgreso = `<div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>`;
+        document.querySelector("#tablon").innerHTML = barraProgreso; 
 
         for (let index = 0; index < 49; index++) {
             let tTemp;
@@ -410,7 +421,9 @@ App = {
             tempElement = `
                             <span>${tTemp}º, ${tFechaH.toLocaleString()} </span><br>`;
             html += tempElement;
-
+            
+            document.querySelector(".progress").innerHTML = `<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${index * 2}%" aria-valuenow="${index * 2}" aria-valuemin="0" aria-valuemax="100">${index * 2}%</div>`; 
+            
         }
         tempElement = `</div> </div>`;
         html += tempElement;

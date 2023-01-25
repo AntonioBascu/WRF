@@ -17,7 +17,7 @@ body {
   position: absolute;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
-  padding: 70px 30px;
+  padding: 70px 30px 20px 30px;
 }
 
 .login-box .avatar {
@@ -66,6 +66,7 @@ body {
   color: #fff;
   font-size: 18px;
   border-radius: 20px;
+  margin: 20px 0;
 }
 
 .login-box input[type="submit"]:hover {
