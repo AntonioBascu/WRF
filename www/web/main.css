@@ -1,10 +1,10 @@
-body{
+body {
     background: url(/img/fondo.png) no-repeat center top;
     background-size: cover;
     color: #fff;
 }
 
-#aviso{
+#aviso {
     color: rgb(201, 57, 57);
     border-style: solid;
     border-width: 2px;
@@ -16,11 +16,10 @@ body{
     text-align: center;
     border-radius: 4px;
     font-size: 20px;
-    padding: 5px;
     width: 100%;
 }
 
-#lButton{
+#lButton {
     margin-left: 50%;
     transform: translateX(-50%);
     font-size: 18px;
@@ -29,22 +28,22 @@ body{
     padding: 4px;
 }
 
-button:disabled{
+button:disabled {
     background-color: #0054dc6e;
 }
 
-.bAño{
+.bAño {
     width: 30%;
     padding: 7px;
 }
 
-.bMes{
+.bMes {
     width: 100%;
     padding: 15px;
     z-index: -1;
 }
 
-.button{
+.button {
     display: inline-block;
     border-radius: 4px;
     background-color: #0054dc;
@@ -61,14 +60,14 @@ button:disabled{
     cursor: pointer;
     margin: 5px;
 }
-  
+
 #txtConectar {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
-  
+
 .button span:after {
     content: '\00bb';
     position: absolute;
@@ -77,17 +76,17 @@ button:disabled{
     right: -20px;
     transition: 0.5s;
 }
-  
+
 .button:hover span {
     padding-right: 25px;
 }
-  
+
 .button:hover span:after {
     opacity: 1;
     right: 0;
 }
 
-.drag-area{
+.drag-area {
     border: 2px dashed rgb(0, 0, 0);
     height: 250px;
     width: 250px;
@@ -99,29 +98,29 @@ button:disabled{
     margin: 5px;
 }
 
-.drag-area.active{
+.drag-area.active {
     border: 2px solid #fff;
 }
 
-.drag-area .icon{
+.drag-area .icon {
     font-size: 60px;
     color: #fff;
 }
 
-.drag-area header{
+.drag-area header {
     font-size: 15px;
     font-weight: 200;
     color: rgb(0, 0, 0);
 }
 
-.drag-area span{
+.drag-area span {
     font-size: 18px;
     font-weight: 200;
     color: rgb(0, 0, 0);
     margin: 10px 0 15px 0;
 }
 
-.drag-area button{
+.drag-area button {
     padding: 8px 20px;
     font-size: 15px;
     font-weight: 500;
@@ -133,14 +132,14 @@ button:disabled{
     /*cursor: pointer;*/
 }
 
-.drag-area img{
+.drag-area img {
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 5px;
 }
 
-.subirDatos{
+.subirDatos {
     height: 30px;
     width: 250px;
     display: flex;
@@ -151,7 +150,7 @@ button:disabled{
     visibility: hidden;
 }
 
-.subirDatos button{
+.subirDatos button {
     padding: 7px 70px;
     border: 2px solid #0054dc;
     color: #fff;
@@ -161,8 +160,89 @@ button:disabled{
     justify-content: center;
 }
 
-.calendario{position: absolute; z-index: 1;}
+.calendario {
+    position: absolute;
+    z-index: 1;
+}
+
+.progress {
+    height: 200px;
+    margin-top: 100px;
+}
 
 .progress-bar {
-    height: 80px;
+    margin-left: -15px;
+    margin-right: -15px;
+    font-size: 30px;
+}
+
+#tablon #portada {
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+#tablon img.avatar {
+    position: relative;
+    width: 130px;
+    height: 100px;
+    border-radius: 50%;
+    margin-left: calc(50% - 65px);
+    margin-top: 10px;
+}
+
+#tablon #flecha{
+    position: relative;
+    font-size: 28px;
+    color: #ffc107;
+    margin-top: 20%;
+    margin-left: 2%;
+}
+
+.card{
+    border-radius: 4px;
+}
+
+#dAno{
+    margin-top: 5%;
+    position: relative;
+}
+
+#tituloLugar{
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+#tituloFecha{
+    margin-top: 20px;
+}
+
+#iconoLugar{
+    font-size:130%;
+    color:red;
+    margin-left: 10px;
+}
+
+#iconoCalendario{
+    font-size:110%;
+    margin: 10px;
+}
+
+#siglasWRF{
+    font-size: 58px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    background-image: linear-gradient(to right, #ffc107, #0054dc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#bLogOut{
+    width: 100%;
+    height: 50px;
+    margin-top: -30px;
+    margin-bottom: 0%;
+    background-color: #ff4d07;
 }
