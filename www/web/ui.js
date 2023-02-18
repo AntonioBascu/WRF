@@ -11,6 +11,7 @@ var files = [];
 
 const dPais = document.querySelector('#dPais');
 const dAno = document.querySelector('#dAno');
+const bLogOut = document.querySelector('#bLogOut');
 
 button.onclick = () => {
   input.click();
@@ -53,4 +54,6 @@ dPais.addEventListener('change', (event) => {
 dAno.addEventListener('change', (event) => {
   App.renderizaMeses(App.meses, App.años, event.target.value);
 });
+
+bLogOut.addEventListener('click', App.logOut);
 

@@ -9,11 +9,9 @@ App = {
         if (App.web3Provider != undefined) {
             await App.cargaWRFContract()
             //await App.loadAccount()
-            //await App.cargarDatos()
-            //await App.renderizarDatos()
 
             await App.cargarPaises()
-            await App.cargaProvincias(`España`)
+            await App.cargaProvincias('España')
         }
 
     },
@@ -104,48 +102,6 @@ App = {
         document.getElementById('lProvincias').innerHTML = html;
     },
 
-    renderizarDatos: async () => {
-
-        try {
-            var cont = await App.wrfContract.contador()
-            var contador = cont.toNumber()
-            let html = "";
-
-            for (let i = 0; i < contador; i++) {
-                let tLugar;
-                await App.getLugar(i).then(v => tLugar = v);
-
-                let tempElement = `<div class="card bg-dark rounded-0 mb-2">
-                    <div class="card-body">
-                        <span>Lugar: ${tLugar}</span><br>
-                    `;
-                html += tempElement;
-
-                for (let index = 0; index < 49; index++) {
-                    let tTemp;
-                    await App.getTemperatura(i, index).then(v => tTemp = v);
-
-                    let tFechaH;
-                    await App.getFechaHora(i, index).then(v => tFechaH = v);
-
-                    tempElement = `
-                            <span>${tTemp}º, ${tFechaH.toLocaleString()} </span><br>`;
-                    html += tempElement;
-
-                }
-
-                tempElement = `</div> </div>`;
-                html += tempElement;
-            }
-
-            document.querySelector("#tablon").innerHTML = html;
-
-            console.log()
-        } catch (error) {
-            console.log(error);
-        }
-    },
-
     comprobarFicheros: () => {
 
         files.forEach(file => {
@@ -169,8 +125,11 @@ App = {
         try {
             await App.wrfContract.crearDatos(lugar, temperaturas, fechaHoras, { from: App.account, });
             window.location.reload();
+            alert("¡Fichero subido con éxito!");
         } catch (error) {
             console.error(error);
+            if(App.account==undefined) alert("¡No has conectado tu billetera con la web! Pulsa el botón azul a la derecha para poder realizar la transacción.");
+            else alert("Ha habido un problema con la transacción.")
         }
     },
 
@@ -231,6 +190,7 @@ App = {
     obtenerLugar: async (lat, lng) => {
         var latlng = new google.maps.LatLng(lat, lng);
         var lug;
+        var geocoder = new google.maps.Geocoder();
 
         await geocoder.geocode({ 'latLng': latlng }, (results, status) => {
             if (status !== google.maps.GeocoderStatus.OK) {
@@ -275,7 +235,7 @@ App = {
         App.dias = [];
         App.idsP = [];
         for (let i = 0; i < contador; i++) {   //se comprueban todos los contratos
-            let lugar;
+            var lugar;
             await App.getLugar(i).then(v => lugar = v)
             if (provincia == lugar.split(',')[1]) {   // si la provincia seleccionada es igual a la del contrato actual del bucle
                 let fecha;
@@ -288,13 +248,14 @@ App = {
         }
         maximo = Math.max(...App.años);
         App.creaDesplegableAños(App.años, maximo);
-        App.renderizaMeses(App.meses, App.años, maximo);
+        App.renderizaMeses(provincia, App.meses, App.años, maximo);
     },
 
-    renderizaMeses: (meses, años, año) => {
+    renderizaMeses: (provincia, meses, años, año) => {
         App.ocultaCalendario();
         let nombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        html = `<div id="col1" class="col-md-6"></div>
+        let html = `<h5 id="tituloLugar">${provincia}<i class="fas fa-map-marker-alt" id="iconoLugar"></i></h5>
+              <div id="col1" class="col-md-6"></div>
               <div id="col2" class="col-md-6"></div>`;
         col = 'col1'
         col1 = '';
@@ -400,36 +361,43 @@ App = {
         let tLugar;
         await App.getLugar(id).then(v => tLugar = v);
 
-        let tempElement = `<div class="card bg-dark rounded-0 mb-2">
-                    <div class="card-body">
-                        <span>Lugar: ${tLugar}</span><br>
-                    `;
-        html += tempElement;
+        let html = App.encabezadoTemperaturas(tLugar);
 
-        barraProgreso = `<div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-        </div>`;
-        document.querySelector("#tablon").innerHTML = barraProgreso; 
+        barraProgreso = `<div class="progress"></div>`;
+        document.querySelector("#tablon").innerHTML = barraProgreso;
 
         for (let index = 0; index < 49; index++) {
             let tTemp;
             await App.getTemperatura(id, index).then(v => tTemp = v);
+            let icono = App.iconoTemperaturas(tTemp);
 
             let tFechaH;
             await App.getFechaHora(id, index).then(v => tFechaH = v);
 
-            tempElement = `
-                            <span>${tTemp}º, ${tFechaH.toLocaleString()} </span><br>`;
+            tempElement = `<tr>
+                            <td>${tTemp}º</td>
+                            <td>${App.obtenerHorasinMinu(tFechaH.toLocaleString())}</td>
+                            <td>
+                            ${icono}
+                            </td>
+                        </tr>`;
             html += tempElement;
-            
-            document.querySelector(".progress").innerHTML = `<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${index * 2}%" aria-valuenow="${index * 2}" aria-valuemin="0" aria-valuemax="100">${index * 2}%</div>`; 
-            
+
+            document.querySelector(".progress").innerHTML = `<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${index * 2}%" aria-valuenow="${index * 2}" aria-valuemin="0" aria-valuemax="100">Cargando <br> ${index * 2}%</div>`;
+
         }
-        tempElement = `</div> </div>`;
+
+        tempElement = `</tbody>
+                    </table>
+                </div>`;
         html += tempElement;
 
 
         document.querySelector("#tablon").innerHTML = html;
+
+        await App.getFechaHora(id, 0).then(v => tFechaH = v);
+        tFechaH = App.fechaTemperaturas(tFechaH.toLocaleString());
+        document.getElementById("tituloFecha").innerHTML = tFechaH;
     },
 
     getLugar: async (i) => {
@@ -446,9 +414,49 @@ App = {
 
     getFechaHora: async (i, index) => {
         let fechaH = await App.wrfContract.getFechaHora(i, index);
-        fechaH = new Date(fechaH * 1000)
+        fechaH = new Date(fechaH * 1000);
         return fechaH;
-    }
+    },
 
+    obtenerHorasinMinu: (str) => {
+        let sinDia = str.substr(str.indexOf(',') + 1)
+        return sinDia.substring(0, sinDia.lastIndexOf(':'));
+    },
+
+    encabezadoTemperaturas: (lugar) => {
+        let tempElement = `
+                        <h5 id="tituloLugar">${lugar}<i class="fas fa-map-marker-alt" id="iconoLugar"></i></h5>
+                        <h5 id="tituloFecha"></h5>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>  
+                                    <th>Temperatura</th>
+                                    <th>Hora</th>
+                                    <th>Clima</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+        return tempElement;
+    },
+
+    iconoTemperaturas: (tTemp) => {
+        let icono;
+        if (tTemp < 0) icono = `<i class='far fa-snowflake'></i>`;
+        else if (0 < tTemp && tTemp < 10) icono = `<i class='fas fa-wind'></i>`;
+        else if (10 < tTemp && tTemp < 15) icono = `<i class='fas fa-smog'></i>`;
+        else if (15 < tTemp && tTemp < 20) icono = `<i class='fas fa-cloud-sun'></i>`;
+        else icono = `<i class='fas fa-sun'></i>`;
+        return icono;
+    },
+
+    fechaTemperaturas: (fechaH) => {
+        return fechaH.substring(0, fechaH.indexOf(","))+`<i id="iconoCalendario" class="far fa-calendar-alt"></i>`;
+    },
+
+    logOut: ()=>{
+        location.replace('../logout.php');
+    }
 }
 

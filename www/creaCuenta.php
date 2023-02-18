@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->bindParam(':provincia', $_POST['provincia']);
 
       if ($stmt->execute()) {
-        //echo '<script> alert("¡Usuario creado con éxito!"); </script>';
+        
         $records = $conn->prepare('SELECT id,email FROM usuarios WHERE email = :email');
         $records->bindParam(':email', $_POST['email']);
 
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
   <div class="login-box">
-    <img src="img/logo.jpg" class="avatar" alt="Avatar Image">
+    <img src="img/logo.jpg" class="avatar" alt="logo WRF">
     <h1>Crea una cuenta WRF</h1>
     <?php if (!empty($message)) : ?>
       <p> <?= $message ?></p>
@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="text" name="provincia" placeholder="Introduce tu provincia">
 
       <input type="submit" value="Crear cuenta">
-      <a href="/index.php">Inicia sesión</a>
     </form>
+    <a href="/index.php">Inicia sesión</a>
   </div>
 </body>
 

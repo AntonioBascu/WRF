@@ -2,7 +2,6 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-  //echo '<script>console.log("ID del usuario: '.$_SESSION['user_id'].'");</script>';
   header('Location: /web/web.php');
 }
 require 'basedatos.php';
@@ -42,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
   <div class="login-box flex-container">
-    <img src="img/logo.jpg" class="avatar" alt="Avatar Image">
+    <img src="img/logo.jpg" class="avatar" alt="logo WRF">
 
     <h1>Inicio de sesión</h1>
     <?php if (!empty($message)) : ?>
@@ -56,8 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <label for="password">Contraseña</label>
       <input type="password" name="password" placeholder="Introduce contraseña">
       <input type="submit" value="Iniciar sesión">
-      <a href="/creaCuenta.php">¿No tienes cuenta?</a>
     </form>
+    <a href="/creaCuenta.php">¿No tienes cuenta?</a>
   </div>
 </body>
 
