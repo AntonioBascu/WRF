@@ -94,7 +94,7 @@ $result = $records->fetch(PDO::FETCH_ASSOC);
 
   <script src="/web/app.js"></script>
   <script src="/web/ui.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBCYwoVbZR0bTZIRMcMkNwpzp8RLr_q0&callback=App.inicializarAPIGMapas" defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=App.inicializarAPIGMapas" defer></script>
 
 </body>
 
